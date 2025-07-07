@@ -1,17 +1,17 @@
+
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
-import { Link, usePage } from '@inertiajs/react';
-import { Key, LayoutGrid, ShieldAlert, User } from 'lucide-react';
-import AppLogo from './app-logo';
 import { can } from '@/utils/permission';
+import { Link, usePage } from '@inertiajs/react';
+import { BedDouble, ClipboardCheck, FileText, HeartPulse, Key, LayoutGrid, Shield, Stethoscope, User, Users } from 'lucide-react';
+import AppLogo from './app-logo';
 
 const footerNavItems: NavItem[] = [];
 
 export function AppSidebar() {
-
     const page = usePage().props as {
         auth?: {
             permissions: string[];
@@ -30,17 +30,47 @@ export function AppSidebar() {
         can('show-user', auth) && {
             title: 'Users',
             href: '/user',
-            icon: User,
+            icon: Users,
         },
-        can('show-permission', auth) && {
-            title: 'Permission',
-            href: '/permission',
-            icon: Key,
-        },
+        // can('show-permission', auth) && {
+        //     title: 'Permission',
+        //     href: '/permission',
+        //     icon: Key,
+        // },
         can('show-role', auth) && {
             title: 'Role',
             href: '/role',
-            icon: ShieldAlert,
+            icon: Shield,
+        },
+        can('show-pasien', auth) && {
+            title: 'Pasien',
+            href: '/pasien',
+            icon: User,
+        },
+        can('show-kesehatanPasien', auth) && {
+            title: 'Kesehatan Pasien',
+            href: '/kesehatanPasien',
+            icon: HeartPulse,
+        },
+        can('show-rawatInap', auth) && {
+            title: 'Rawat Inap',
+            href: '/rawatInap',
+            icon: BedDouble,
+        },
+        can('show-rawatJalan', auth) && {
+            title: 'Rawat Jalan',
+            href: '/rawatJalan',
+            icon: Stethoscope,
+        },
+        can('show-rekamMedis', auth) && {
+            title: 'Rekam Medis',
+            href: '/rekamMedis',
+            icon: FileText,
+        },
+        can('show-rekamMedisCk', auth) && {
+            title: 'Rekam Medis Checkpoint',
+            href: '/rekamMedisCk',
+            icon: ClipboardCheck,
         },
     ].filter(Boolean) as NavItem[];
 

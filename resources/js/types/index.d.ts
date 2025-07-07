@@ -43,3 +43,63 @@ export interface User {
     updated_at: string;
     [key: string]: unknown;
 }
+
+
+export interface Pasien {
+    id: number;
+    nama_pasien: string;
+    kesehatan_pasien: KesehatanPasien[]
+    nik: string;
+    tanggal_lahir: string;
+    jenis_kelamin: string;
+    alamat: string;
+    nohp: string;
+}
+
+export interface KesehatanPasien {
+    id: number;
+    pasien_id: number;
+    jenis_perawatan: string;
+    kode: string;
+    tanggal_mulai: string;
+    tanggal_selesai: string;
+    diagnosa: string;
+    dokter: string;
+}
+
+export interface RawatInap {
+    id: number;
+    kesehatan_pasien_id: number;
+    kamar: string;
+    tindakan: string;
+    obat: string;
+}
+
+export interface RawatJalan {
+    id: number;
+    kesehatan_pasien_id: number;
+    resep: string;
+    tindakan: string;
+}
+
+export interface RekamMedis {
+    id: number;
+    pasien_id: number;
+    kesehatan_pasien_id: number;
+    file: string;
+    status: string;
+    catatan: string;
+}
+
+export interface RekamMedisCk {
+    id: number;
+    rekam_medis_id: number;
+    verifikator_id: number;
+    verifikator: User;
+    status: string;
+    level_ck: string;
+    tanggal: string;
+    deskripsi: string;
+}
+
+
