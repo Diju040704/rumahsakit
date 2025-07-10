@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\AntrianController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,5 +26,10 @@ class KesehatanPasien extends Model
 
     public function rekamMedis(){
         return $this->hasMany(RekamMedis::class,'kesehatan_pasien_id');
+    }
+
+    public function antrian()
+    {
+        return $this->hasMany(AntrianController::class, 'kesehatan_id');
     }
 }

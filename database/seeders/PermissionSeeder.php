@@ -45,6 +45,8 @@ class PermissionSeeder extends Seeder
             'show-rawatJalan',
             'edit-rekamMedisCk',
             'show-rekamMedisCk',
+            'show-antrian',
+            'validation-antrian',
         ];
 
         foreach ($permissions as $permission) {

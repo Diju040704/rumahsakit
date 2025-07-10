@@ -6,7 +6,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { type NavItem } from '@/types';
 import { can } from '@/utils/permission';
 import { Link, usePage } from '@inertiajs/react';
-import { BedDouble, ClipboardCheck, FileText, HeartPulse, Key, LayoutGrid, Shield, Stethoscope, User, Users } from 'lucide-react';
+import { BedDouble, ClipboardCheck, FileQuestion, FileText, HeartPulse, Key, LayoutGrid, Shield, Stethoscope, User, Users } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const footerNavItems: NavItem[] = [];
@@ -71,6 +71,11 @@ export function AppSidebar() {
             title: 'Rekam Medis Checkpoint',
             href: '/rekamMedisCk',
             icon: ClipboardCheck,
+        },
+        can('show-antrian', auth) && {
+            title: 'Antrian Obat',
+            href: '/antrian',
+            icon: FileQuestion,
         },
     ].filter(Boolean) as NavItem[];
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antrian;
 use App\Models\RawatInap;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -63,19 +64,41 @@ class RawatInapController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        $rawatInap = RawatInap::find($id);
+{
+    $rawatInap = RawatInap::find($id);
 
-        $validated = $request->validate([
-            'kamar' => 'required',
-            'tindakan' => 'required',
-            'obat' => 'required',
+    $validated = $request->validate([
+        'kamar' => 'required',
+        'tindakan' => 'required',
+        'obat' => 'required',
+    ]);
+
+    $rawatInap->update($validated);
+
+    if ($rawatInap->obat !== null) {
+        $lastAntrian = Antrian::where('no_antrian', 'like', 'PO-%')
+            ->orderByDesc('id')
+            ->first();
+
+        if ($lastAntrian) {
+            $lastNumber = (int)substr($lastAntrian->no_antrian, 3);
+            $newNumber = $lastNumber + 1;
+        } else {
+            $newNumber = 1;
+        }
+
+        $formattedNumber = 'PO-' . str_pad($newNumber, 2, '0', STR_PAD_LEFT);
+
+        Antrian::create([
+            'kesehatan_id' => $rawatInap->kesehatan_pasien_id,
+            'no_antrian' => $formattedNumber,
+            'status' => 'menunggu',
         ]);
-
-        $rawatInap->update($validated);
-
-        return redirect()->route('rawatInap.index')->with('success', 'Rawat Inap updated successfully.');
     }
+
+    return redirect()->route('rawatInap.index')->with('success', 'Rawat Inap updated successfully.');
+}
+
 
     /**
      * Remove the specified resource from storage.

@@ -56,6 +56,13 @@ export interface Pasien {
     nohp: string;
 }
 
+export interface Antrian {
+    id: number;
+    kesehatan_pasien: KesehatanPasien[]
+    status: string;
+    no_antrian: string;
+}
+
 export interface KesehatanPasien {
     id: number;
     pasien_id: number;

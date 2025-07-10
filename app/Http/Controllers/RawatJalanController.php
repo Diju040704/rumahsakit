@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antrian;
 use App\Models\RawatJalan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -72,6 +73,27 @@ class RawatJalanController extends Controller
         ]);
 
         $rawatJalan->update($validated);
+
+        if ($rawatJalan->resep !== null) {
+        $lastAntrian = Antrian::where('no_antrian', 'like', 'PO-%')
+            ->orderByDesc('id')
+            ->first();
+
+        if ($lastAntrian) {
+            $lastNumber = (int)substr($lastAntrian->no_antrian, 3);
+            $newNumber = $lastNumber + 1;
+        } else {
+            $newNumber = 1;
+        }
+
+        $formattedNumber = 'PO-' . str_pad($newNumber, 2, '0', STR_PAD_LEFT);
+
+        Antrian::create([
+            'kesehatan_id' => $rawatJalan->kesehatan_pasien_id,
+            'no_antrian' => $formattedNumber,
+            'status' => 'menunggu',
+        ]);
+    }
 
         return redirect()->route('rawatJalan.index')->with('success', 'Rawat Jalan updated successfully.');
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\KesehatanPasienController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PermissionController;
@@ -41,7 +42,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     route::resource('rawatJalan', RawatJalanController::class);
     route::resource('rekamMedis', RekamMedisController::class);
     route::resource('rekamMedisCk', RekamMedisCkController::class);
+    route::resource('antrian', AntrianController::class);
     Route::get('/laporan/kesehatan-pasien/{id}/download', [KesehatanPasienController::class, 'downloadDetailKesehatanPasienPDF'])->name('laporan.detail-kesehatan.download');
+    Route::post('/antrian/{antrian}/', [AntrianController::class, 'validation'])->name('validation.antrian');
 
 });
 
