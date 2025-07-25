@@ -13,6 +13,10 @@ export const RawatInapColumns = (canEdit: boolean, canDelete: boolean, onDelete:
         header: 'Nama Pasien',
     },
     {
+        accessorKey: 'kesehatan_pasien.dokter',
+        header: 'Nama Dokter',
+    },
+    {
         accessorKey: 'kesehatan_pasien.kode',
         header: 'Kode',
     },
